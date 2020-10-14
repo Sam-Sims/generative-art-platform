@@ -6,6 +6,7 @@ var particles = [];
 var zoff = 0;
 var particle_limit = 1;
 var started = false;
+var render_flowfield = false;
 
 function setup() {
     // Setup Canvas
@@ -52,7 +53,7 @@ function draw() {
 
 function start() {
     started = true;
-     // Create particles
+    // Create particles
     particle_limit = document.getElementById("particle_no").value;
     for (var i = 0; i < particle_limit; i++) {
         particles[i] = new Particle();
@@ -74,6 +75,12 @@ function render() {
     } else {
         edge = false;
     }
+    if (document.getElementById('render_flow').checked) {
+        render_flowfield = true;
+        background("white")
+    } else {
+        render_flowfield = false;
+    }
     console.log(rs)
 
 
@@ -88,17 +95,16 @@ function render() {
             point_vector.setMag(0.1);
             flowfield[index] = point_vector;
             xoff += inc;
+            if (render_flowfield) {
+                stroke(0)
+                strokeWeight(1)
+                push()
+                translate(x * resolution, y * resolution);
+                rotate(point_vector.heading());
+                line(0, 0, resolution, 0)
+                pop()
+            }
 
-            // Uncomment to render flowfield displaying vector angle and magnitude
-            /*
-            stroke(0)
-            strokeWeight(1)
-            push()
-            translate(x*resolution, y*resolution);
-            rotate(point_vector.heading());
-            line(0,0,resolution,0)
-            pop()
-            */
         }
         yoff += inc;
         zoff += (zmod / 10000);
