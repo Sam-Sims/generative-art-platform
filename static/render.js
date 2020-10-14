@@ -26,7 +26,7 @@ function setup() {
 
     // Variable assignment
     flowfield = new Array(cols * rows);
-    particle_limit = 200;
+    particle_limit = document.getElementById("particle_no").value;
     noLoop();
 
     // Create particles
