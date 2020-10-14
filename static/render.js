@@ -4,7 +4,7 @@ var cols, rows;
 var fps;
 var particles = [];
 var zoff = 0;
-var particle_limit;
+var particle_limit = 1;
 var started = false;
 
 function setup() {
