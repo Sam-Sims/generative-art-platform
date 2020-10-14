@@ -26,13 +26,9 @@ function setup() {
 
     // Variable assignment
     flowfield = new Array(cols * rows);
-    particle_limit = document.getElementById("particle_no").value;
+
     noLoop();
 
-    // Create particles
-    for (var i = 0; i < particle_limit; i++) {
-        particles[i] = new Particle();
-    }
 
     //UI Stuff - probably move to bootstrap
     /*
@@ -56,6 +52,11 @@ function draw() {
 
 function start() {
     started = true;
+     // Create particles
+    particle_limit = document.getElementById("particle_no").value;
+    for (var i = 0; i < particle_limit; i++) {
+        particles[i] = new Particle();
+    }
     loop()
 }
 
