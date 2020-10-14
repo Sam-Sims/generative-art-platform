@@ -10,8 +10,13 @@ var render_flowfield = false;
 
 function setup() {
     // Setup Canvas
-    var canvasW = 960;
-    var canvasH = 360;
+   if (/Android|webOS|iPhone/i.test(navigator.userAgent)) {
+        var canvasW = 375;
+        var canvasH = 500;
+    } else {
+        var canvasW = 960;
+        var canvasH = 360;
+    }
     var canvas = createCanvas(canvasW, canvasH);
     var x = (windowWidth - width) / 2;
     var y = (windowHeight - height) / 2;
