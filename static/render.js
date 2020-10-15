@@ -7,10 +7,12 @@ var zoff = 0;
 var particle_limit = 1;
 var started = false;
 var render_flowfield = false;
+var prevFC = 0;
+var frame_limit = 0;
 
 function setup() {
     // Setup Canvas
-   if (/Android|webOS|iPhone/i.test(navigator.userAgent)) {
+    if (/Android|webOS|iPhone/i.test(navigator.userAgent)) {
         var canvasW = 375;
         var canvasH = 500;
     } else {
@@ -51,7 +53,13 @@ function setup() {
 
 function draw() {
     if (started) {
-        render()
+        render();
+        if ((frameCount - prevFC) == frame_limit) {
+            noLoop();
+            prevFC = frameCount;
+            console.log(prevFC)
+            console.log(frameCount)
+        }
     }
     fps.html(floor(frameRate()));
 }
@@ -60,6 +68,8 @@ function start() {
     started = true;
     // Create particles
     particle_limit = document.getElementById("particle_no").value;
+    frame_limit = document.getElementById("frame_no").value;
+
     for (var i = 0; i < particle_limit; i++) {
         particles[i] = new Particle();
     }
@@ -106,7 +116,7 @@ function render() {
                 push()
                 translate(x * resolution, y * resolution);
                 rotate(point_vector.heading());
-                line(0, 0, resolution, 0)
+                line(0, 0, resolution, 0);
                 pop()
             }
 
